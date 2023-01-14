@@ -10,3 +10,4 @@ class ticker:
     
     def info(self):
         return get_info(self.ticker)
+    
