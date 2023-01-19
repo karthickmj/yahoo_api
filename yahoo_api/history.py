@@ -32,8 +32,7 @@ def get_history(ticker, period, continuous = False):
         df.dropna(subset=['Open'], inplace=True)
         
         # If asked transform history into continuous one
-        if continuous != False:
-            df = transform_continuous(df, delta)
+        if continuous != False: df = df.resample('D').ffill()[-delta:]
         return(df)
     
 def timeperiod(period):
@@ -56,14 +55,3 @@ def timeperiod(period):
         period1 = str(int(period1.timestamp()))
     period2 = str(int(datetime.now().timestamp()))
     return(period1, period2, delta)
-
-def transform_continuous(df, delta):
-    # transform history into continuous one
-    today = datetime.now().strftime('%Y-%m-%d')
-    dates = pd.date_range(start=df.index.min(), end=today)
-    df_continuous = pd.DataFrame(index=dates)
-    df_continuous = df_continuous.join(df, how='left')
-    df = df_continuous.ffill()
-    df = df[-delta:]
-    return(df)
-    
