@@ -1,5 +1,6 @@
 from .info import get_info
 from .history import get_history
+from .finance import get_financials
 
 class ticker:
     def __init__(self, ticker):
@@ -11,3 +12,5 @@ class ticker:
     def info(self):
         return get_info(self.ticker)
     
+    def financial(self, statement):
+        return get_financials(self.ticker, statement)
