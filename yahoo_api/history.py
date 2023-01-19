@@ -34,6 +34,27 @@ def get_history(ticker, period, continuous = False):
         # If asked transform history into continuous one
         if continuous != False: df = df.resample('D').ffill()[-delta:]
         return(df)
+
+def get_dividend(ticker, period):
+        # Send request to the web site
+        period1, period2, delta = timeperiod(period)
+        url = f'https://query1.finance.yahoo.com/v7/finance/download/{ticker}?period1={period1}&period2={period2}&interval=1d&events=div&includeAdjustedClose=true'
+        response = requests.get(
+            url,
+            headers={'User-Agent': 'Safari/537.36'},
+            timeout= 10
+        )
+        
+        # Donwload, read as DataFrame and delete history.csv 
+        with open(f'{ticker}.csv', 'w') as f:
+                f.write(response.text)
+        df = pd.read_csv(f'{ticker}.csv')
+        os.remove(f'{ticker}.csv')
+        
+        # Clean DataFrame
+        df = df.set_index('Date')
+        df.index = pd.to_datetime(df.index)
+        return df
     
 def timeperiod(period):
     # Transform string into timestamp
