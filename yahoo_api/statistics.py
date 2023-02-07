@@ -8,7 +8,6 @@ def get_statistics(ticker):
     Works only with equity
     """
     # Initialization
-    dictionary = {}
     url = f'https://finance.yahoo.com/quote/{ticker}/key-statistics?p={ticker}'
     soup = get_soup(url)
     QuoteType = get_quote_type(soup)
@@ -16,17 +15,28 @@ def get_statistics(ticker):
     # Get Currency
     data_config = soup.find('div',{'id':'smartDaConfig'})
     config = json.loads(data_config['data-smart-da-config'])
-    dictionary['Quote Currency'] = config['dynamicData']['FIN_CURRENCY_TYPE']
     
     if QuoteType == 'EQUITY':
         # Get infos from tables
-        index = soup.find_all('td',{'class':'Pos(st) Start(0) Bgc($lv2BgColor) fi-row:h_Bgc($hoverBgColor) Pend(10px)'})
-        value = soup.find_all('td',{'class':'Fw(500) Ta(end) Pstart(10px) Miw(60px)'})
-        index = [i.text for i in index]
-        value = [v.text for v in value]
-        for v, i in zip(value, index): dictionary[i] = v
+        tables = soup.find_all('table',{'class':'W(100%) Bdcl(c)'})
+        values = [[value.text for value in row] for row in [table.find_all('td') for table in tables]]
+        texts = [item for sublist in values for item in sublist]
+        dictionary = delister(texts)
         
         return dictionary
     
     else:
         return 'Statistics web page not found'
+
+def delister(List):
+    dictionary = {}
+    for n, item in enumerate(List):
+        if n % 2 ==0:
+            index = item
+        else:
+            value = item
+        if n % 2 == 0:
+            pass
+        else:
+            dictionary[index] = value
+    return dictionary
