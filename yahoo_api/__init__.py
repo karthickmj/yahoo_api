@@ -1,7 +1,7 @@
 from .summary import get_summary
 from .history import get_history, get_dividend
 from .finance import get_financials
-from .profile import get_profile
+from .profile import get_profile, get_description
 from .holders import get_holders
 from .statistics import get_statistics
 
@@ -9,7 +9,7 @@ class ticker:
     def __init__(self, ticker):
         self.ticker = ticker
     
-    def history(self, period, continuous = False):
+    def history(self, period, interval='1d', continuous=False):
         return get_history(self.ticker, period, continuous)
 
     def dividend(self, period):
@@ -23,6 +23,9 @@ class ticker:
 
     def profile(self):
         return get_profile(self.ticker)
+
+    def description(self):
+        return get_description(self.ticker)
 
     def holders(self):
             return get_holders(self.ticker)
