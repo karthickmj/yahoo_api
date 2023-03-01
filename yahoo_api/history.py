@@ -4,12 +4,13 @@ from bs4 import BeautifulSoup
 import datetime 
 from datetime import datetime, date, timedelta
 import os 
+import random
 
-def get_history(ticker, period, continuous = False):
+def get_history(ticker, period, interval='1d', continuous = False):
         # Send request to the web site
         period1, period2, delta = timeperiod(period)
-        url = f'https://query1.finance.yahoo.com/v7/finance/download/{ticker}?period1={period1}&period2={period2}&interval=1d&events=history&includeAdjustedClose=true'
-        response = requests.get(url,headers={'User-Agent': 'Safari/537.36'},timeout= 10)
+        url = f'https://query1.finance.yahoo.com/v7/finance/download/{ticker}?period1={period1}&period2={period2}&interval={interval}&events=history&includeAdjustedClose=true'
+        response = requests.get(url,headers={'User-Agent': 'Safari/537.36'},timeout= random.randint(7, 14))
         
         # Donwload, read as DataFrame and delete history.csv 
         with open(f'{ticker}.csv', 'w') as f:
@@ -30,7 +31,7 @@ def get_history(ticker, period, continuous = False):
         # If asked transform history into continuous one
         if continuous: df = df.resample('D').ffill()[-delta:]
             
-        return(df)
+        return df
 
 def get_dividend(ticker, period):
         # Send request to the web site
