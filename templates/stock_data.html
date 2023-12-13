@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% extends 'base_layout.html' %}
+    {% block content %}
+    <div class="stock-data-form">
+        <h1>Enter Stock Ticker</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Get Stock Data</button>
+        </form>
+    </div>
+    {% if stock_data %}
+    <div class="stock-data-results">
+        <h2>Stock Data for {{ stock_data.ticker }}</h2>
+        <p>Current Price: {{ stock_data.current_price }}</p>
+        <p>Market Change: {{ stock_data.market_change }}</p>
+    </div>
+    {% endif %}
+    {% endblock %}
+</body>
+</html>
