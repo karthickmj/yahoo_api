@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    {% extends 'base_layout.html' %}
+    {% block content %}
+    <div class="stock-selection-form">
+        <form method="post">
+            {% csrf_token %}
+            {{ StockSelectionForm.as_p }}
+            <button type="submit">Get Stock Data</button>
+        </form>
+    </div>
+    <div class="stock-data">
+        {% if stock_data %}
+            <h2>{{ stock_data.name }}</h2>
+            <p>Current Price: {{ stock_data.current_price }}</p>
+            <p>Market Change: {{ stock_data.market_change }}</p>
+            <p>Market Change Percentage: {{ stock_data.market_change_pct }}</p>
+            <h3>Financial Highlights:</h3>
+            <ul>
+                <li>Market Cap: {{ stock_data.market_cap }}</li>
+                <li>PE Ratio: {{ stock_data.pe_ratio }}</li>
+                <li>Dividend Yield: {{ stock_data.dividend_yield }}</li>
+            </ul>
+        {% else %}
+            <p>No stock data to display. Please select a stock ticker.</p>
+        {% endif %}
+    </div>
+    {% endblock %}
+</body>
+</html>
