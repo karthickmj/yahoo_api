@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Stock Data Viewer</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="stock-form">
+            <form id="StockSelectionForm">
+                <input type="text" name="stock_symbol" placeholder="Enter Stock Symbol" required>
+                <input type="submit" value="Get Data">
+            </form>
+        </div>
+        <div class="stock-data" id="stockDataDisplayArea">
+            <!-- Stock data will be displayed here -->
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#StockSelectionForm').on('submit', function(e) {
+                e.preventDefault();
+                var stockSymbol = $('input[name="stock_symbol"]').val();
+                $.ajax({
+                    url: '/api/stock_data',
+                    type: 'GET',
+                    data: { symbol: stockSymbol },
+                    success: function(response) {
+                        var stockDataHtml = '';
+                        if(response) {
+                            stockDataHtml += '<h2>' + response.name + '</h2>';
+                            stockDataHtml += '<ul>';
+                            for(var key in response) {
+                                if(response.hasOwnProperty(key) && key !== 'name') {
+                                    stockDataHtml += '<li><span>' + key + ':</span> ' + response[key] + '</li>';
+                                }
+                            }
+                            stockDataHtml += '</ul>';
+                        } else {
+                            stockDataHtml = '<p>No data available for the symbol.</p>';
+                        }
+                        $('#stockDataDisplayArea').html(stockDataHtml);
+                    },
+                    error: function(error) {
+                        $('#stockDataDisplayArea').html('<p>Error fetching data.</p>');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
