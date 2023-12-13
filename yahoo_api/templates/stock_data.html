@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% extends 'base_layout.html' %}
+    {% block content %}
+    <div class="container">
+        <h1>Stock Ticker Data</h1>
+        <form method="post" action=".">
+            {% csrf_token %}
+            {{ StockTickerForm.as_p }}
+            <button type="submit">Get Data</button>
+        </form>
+    </div>
+    {% endblock %}
+</body>
+</html>
