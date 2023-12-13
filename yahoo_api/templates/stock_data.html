@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data Details</title>
+</head>
+<body>
+    <h1>Stock Data for {{ ticker_symbol }}</h1>
+    <div>
+        <h2>Summary</h2>
+        <p><strong>Previous Close:</strong> {{ summary.previous_close }}</p>
+        <p><strong>Open:</strong> {{ summary.open }}</p>
+        <p><strong>Volume:</strong> {{ summary.volume }}</p>
+        <p><strong>Market Cap:</strong> {{ summary.market_cap }}</p>
+        <p><strong>PE Ratio:</strong> {{ summary.pe_ratio }}</p>
+        <p><strong>Dividend Yield:</strong> {{ summary.dividend_yield }}</p>
+        <p><strong>Average Volume:</strong> {{ summary.average_volume }}</p>
+        <p><strong>52 Week High:</strong> {{ summary.high_52_weeks }}</p>
+        <p><strong>52 Week Low:</strong> {{ summary.low_52_weeks }}</p>
+    </div>
+    <a href="{% url 'index' %}">Go back to search</a>
+</body>
+</html>
