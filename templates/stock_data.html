@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data</title>
+    <!-- Add any additional stylesheet links here -->
+</head>
+<body>
+    <h1>Stock Data Viewer</h1>
+    <!-- Stock Selection Form -->
+    {% if form %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Get Stock Data</button>
+    </form>
+    {% endif %}
+
+    <!-- Stock Data Display -->
+    {% if stock_data %}
+    <div>
+        <h2>Stock Information:</h2>
+        <p><strong>Symbol:</strong> {{ stock_data.symbol }}</p>
+        <p><strong>Price:</strong> {{ stock_data.price }}</p>
+        <p><strong>Change:</strong> {{ stock_data.change }}</p>
+        <!-- Add more fields as necessary -->
+    </div>
+    {% elif error %}
+    <div class="alert alert-danger">
+        <strong>Error:</strong> {{ error }}
+    </div>
+    {% endif %}
+
+    <!-- Add any additional scripts here -->
+
+</body>
+</html>
