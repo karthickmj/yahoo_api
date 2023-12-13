@@ -1,0 +1,81 @@
+/* Main layout styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+header {
+  background: #50b3a2;
+  color: white;
+  padding-top: 30px;
+  min-height: 70px;
+  border-bottom: #e8491d 3px solid;
+}
+
+header a {
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+header ul {
+  padding: 0;
+  list-style: none;
+}
+
+header ul li {
+  display: inline;
+  margin-left: 20px;
+}
+
+/* Stock data form styles */
+.stock-form {
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.stock-form input[type='text'], .stock-form input[type='submit'] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+/* Stock data display area styles */
+.stock-data {
+  margin-top: 20px;
+  padding: 20px;
+  background: #ffffff;
+}
+
+.stock-data h2 {
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.stock-data ul {
+  list-style: none;
+  padding: 0;
+}
+
+.stock-data ul li {
+  padding: 10px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.stock-data ul li:last-child {
+  border-bottom: none;
+}
+
+.stock-data span {
+  font-weight: bold;
+}
