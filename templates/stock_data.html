@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data</title>
+</head>
+<body>
+    <h1>Stock Information</h1>
+    <form id="stockSelectionForm" method="post">
+        {% csrf_token %}
+        {{ StockSelectionForm.as_p }}
+        <button type="submit">Get Stock Data</button>
+    </form>
+    <div id="stockData">
+        <!-- Stock data will be displayed here after fetching from the StockDataView -->
+    </div>
+
+    <script type="text/javascript">
+        document.getElementById('stockSelectionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            fetch('/path/to/stock/data/view', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var stockDataDiv = document.getElementById('stockData');
+                stockDataDiv.innerHTML = '';
+                // Populate stockDataDiv with data
+                // Example: stockDataDiv.innerHTML = '<p>' + data.name + ': ' + data.price + '</p>';
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
