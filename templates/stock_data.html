@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data</title>
+</head>
+<body>
+    <h1>Stock Information</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Get Stock Data</button>
+    </form>
+    <hr>
+    {% if stock_data %}
+        <h2>Stock Details:</h2>
+        <p><strong>Ticker Symbol:</strong> {{ stock_data.ticker_symbol }}</p>
+        <p><strong>Name:</strong> {{ stock_data.name }}</p>
+        <p><strong>Price:</strong> {{ stock_data.price }}</p>
+        <p><strong>Change:</strong> {{ stock_data.change }}</p>
+        <p><strong>Percent Change:</strong> {{ stock_data.percent_change }}</p>
+        <p><strong>Volume:</strong> {{ stock_data.volume }}</p>
+    {% else %}
+        <p>No stock data to display.</p>
+    {% endif %}
+</body>
+</html>
