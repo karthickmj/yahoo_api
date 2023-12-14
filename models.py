@@ -1,0 +1,1 @@
+# No changes needed as the Django model 'Stock' is not required for this implementation since we are not storing any stock data in the database.
