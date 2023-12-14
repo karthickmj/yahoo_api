@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data</title>
+</head>
+<body>
+    <h1>Stock Information</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Get Data</button>
+    </form>
+    {% if stock_data %}
+        <h2>Current Price: {{ stock_data.current_price }}</h2>
+        <h3>Market Change: {{ stock_data.market_change }}</h3>
+        <div>
+            <h3>Financial Highlights:</h3>
+            <p>Open: {{ stock_data.open }}</p>
+            <p>High: {{ stock_data.high }}</p>
+            <p>Low: {{ stock_data.low }}</p>
+            <p>Volume: {{ stock_data.volume }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>
