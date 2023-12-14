@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Detail</title>
+</head>
+<body>
+    <h1>Stock Detail</h1>
+    <div>
+        {{ StockSelectForm.as_p }}
+    </div>
+    <hr>
+    <div>
+        <h2>{{ stock.name }}</h2>
+        <p>Current Price: {{ stock.current_price }}</p>
+        <p>Market Change: {{ stock.market_change }}</p>
+        <p>Market Change Percent: {{ stock.market_change_percent }}%</p>
+        <h3>Financial Highlights</h3>
+        <ul>
+            <li>Open: {{ stock.financials.open }}</li>
+            <li>High: {{ stock.financials.high }}</li>
+            <li>Low: {{ stock.financials.low }}</li>
+            <li>Volume: {{ stock.financials.volume }}</li>
+        </ul>
+    </div>
+</body>
+</html>
